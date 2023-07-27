@@ -20,7 +20,7 @@ jobs:
     steps:
       - run: echo "Testing url ${{ github.event.inputs.deployPrimeUrl }}"
       - run: echo "Site name ${{ github.event.inputs.siteName }}"
-
+      - run: echo "App commit SHA ${{ github.event.inputs.commit }}"
   tests:
     runs-on: ubuntu-20.04
     steps:
@@ -30,6 +30,10 @@ jobs:
       # Installs and caches dependencies, runs all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v5
+        id: cypress
+        # Continue the build in case of an error, as we need to set the
+        # commit status in the next step, both in case of success and failure
+        continue-on-error: true
         with:
           # we want to test the URL passed by Netlify
           config: baseUrl=${{ github.event.inputs.deployPrimeUrl }}
