@@ -10,7 +10,9 @@ on:
       deployPrimeUrl:
         description: Deployed URL
         required: true
-        default: 'https://dulcet-torrone-f9beeb.netlify.app'
+      commit:
+        description: Original repo commit SHA
+        required: false
 jobs:
   # example job showing the Netlify information
   show-event:
@@ -27,7 +29,7 @@ jobs:
       # https://github.com/cypress-io/github-action
       # Installs and caches dependencies, runs all Cypress tests
       - name: Cypress run
-        uses: cypress-io/github-action@v5a
+        uses: cypress-io/github-action@v5
         with:
           # we want to test the URL passed by Netlify
           config: baseUrl=${{ github.event.inputs.deployPrimeUrl }}
