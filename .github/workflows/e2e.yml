@@ -33,3 +33,23 @@ jobs:
         with:
           # we want to test the URL passed by Netlify
           config: baseUrl=${{ github.event.inputs.deployPrimeUrl }}
+      # after e2e tests finish, set the status back in the original repo
+      # https://github.com/marketplace/actions/github-status-action
+      - name: Set commit status
+        if: ${{ github.event.inputs.commit }}
+        uses: Sibz/github-status-action@v1
+        with:
+          # create personal GitHub token to be able to
+          # set status in other repositories
+          # https://github.com/settings/tokens/new
+          authToken: ${{secrets.PERSONAL_GITHUB_TOKEN}}
+          context: 'E2E tests'
+          description: 'Cypress ran the tests'
+          # state can be success, error, failure, or pending
+          # let's grab it from the Cypress step outcomes
+          # https://github.com/cypress-io/github-action#outputs
+          state: ${{ steps.cypress.outcome }}
+          owner: 'bahmutov'
+          repository: 'todomvc-no-tests'
+          sha: ${{github.event.inputs.commit}}
+          target_url: ${{ steps.cypress.outputs.dashboardUrl }}
