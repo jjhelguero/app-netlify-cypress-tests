@@ -33,7 +33,3 @@ jobs:
         with:
           # we want to test the URL passed by Netlify
           config: baseUrl=${{ github.event.inputs.deployPrimeUrl }}
-          # store video and screenshots on Cypress Dashboard
-          record: true
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
