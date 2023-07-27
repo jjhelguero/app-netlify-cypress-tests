@@ -49,7 +49,7 @@ jobs:
           # let's grab it from the Cypress step outcomes
           # https://github.com/cypress-io/github-action#outputs
           state: ${{ steps.cypress.outcome }}
-          owner: 'bahmutov'
-          repository: 'todomvc-no-tests'
+          owner: 'jjhelguero'
+          repository: 'app-netlify'
           sha: ${{github.event.inputs.commit}}
           target_url: ${{ steps.cypress.outputs.dashboardUrl }}
