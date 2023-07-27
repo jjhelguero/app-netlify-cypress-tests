@@ -10,7 +10,9 @@ on:
       deployPrimeUrl:
         description: Deployed URL
         required: true
-        default: 'https://dulcet-torrone-f9beeb.netlify.app'
+      commit:
+        description: Original repo commit SHA
+        required: false
 jobs:
   # example job showing the Netlify information
   show-event:
