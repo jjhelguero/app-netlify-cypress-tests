@@ -21,15 +21,19 @@ jobs:
       - run: echo "Testing url ${{ github.event.inputs.deployPrimeUrl }}"
       - run: echo "Site name ${{ github.event.inputs.siteName }}"
       - run: echo "App commit SHA ${{ github.event.inputs.commit }}"
+
   tests:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
+
       # https://github.com/cypress-io/github-action
       # Installs and caches dependencies, runs all Cypress tests
       - name: Cypress run
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v2
+        # let's give this action an ID so we can refer
+        # to its output values later
         id: cypress
         # Continue the build in case of an error, as we need to set the
         # commit status in the next step, both in case of success and failure
@@ -37,6 +41,7 @@ jobs:
         with:
           # we want to test the URL passed by Netlify
           config: baseUrl=${{ github.event.inputs.deployPrimeUrl }}
+
       # after e2e tests finish, set the status back in the original repo
       # https://github.com/marketplace/actions/github-status-action
       - name: Set commit status
