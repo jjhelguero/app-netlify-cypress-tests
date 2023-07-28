@@ -51,7 +51,7 @@ jobs:
           # create personal GitHub token to be able to
           # set status in other repositories
           # https://github.com/settings/tokens/new
-          authToken: ${{secrets.GITHUB_TOKEN}}
+          authToken: ${{secrets.PERSONAL_GITHUB_TOKEN}}
           context: 'E2E tests'
           description: 'Cypress ran the tests'
           # state can be success, error, failure, or pending
